@@ -11,6 +11,8 @@ public class CupExploder : MonoBehaviour {
         collisionCurrent += Time.deltaTime;
 
         if (collisionCurrent > collisionRequired) {
+            GameObject explosion = (GameObject)Instantiate(Resources.Load("Detonator-Tiny"));
+            explosion.transform.position = transform.position;
             Destroy(col.gameObject);
             Destroy(gameObject);
         } 
