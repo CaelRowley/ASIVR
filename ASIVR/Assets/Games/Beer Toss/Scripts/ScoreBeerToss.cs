@@ -35,6 +35,11 @@ public class ScoreBeerToss : MonoBehaviour {
             PlayerPrefs.SetInt(highScoreKey, currentTime);
             currentTime = bestTime;
          }
+
+         if(bestTime == 0) {
+            PlayerPrefs.SetInt(highScoreKey, currentTime);
+            i = bestTimes.Length;
+         }
       }
       PlayerPrefs.Save();
    }
