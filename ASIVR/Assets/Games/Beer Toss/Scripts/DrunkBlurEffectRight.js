@@ -13,7 +13,7 @@ function Start () {
 
 function Update () {
     beerCup = GameObject.FindGameObjectsWithTag("BeerCup");
-    if(beerCup.length < maxCup - 2)
+    if(beerCup.length < maxCup - 3)
     {
         motionBlur.enabled = true;
     }
