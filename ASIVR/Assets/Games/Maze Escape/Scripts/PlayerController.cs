@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
    private bool moveforward = false;
    private Vector3 forward;
 
-   void Update () {
+   void Update() {
       if(Cardboard.SDK.Triggered)
          moveforward = !moveforward;
 
@@ -16,6 +16,6 @@ public class PlayerController : MonoBehaviour {
          forward.y = 0.0f;
          transform.position += forward * Time.deltaTime * movementSpeed;
       }
-         
+
    }
 }

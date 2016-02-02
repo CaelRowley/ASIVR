@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Games/Beer Toss/BeerTossGameScene1.unity
+- path: Assets/Games/Gun Deck/GunDeckGameScene1.unity
   isLoaded: 1
   isActive: 1
