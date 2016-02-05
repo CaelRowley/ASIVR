@@ -2,11 +2,10 @@
 using System.Collections;
 
 public class CollisionExploder : MonoBehaviour {
+   public Transform prefab;
 
    void OnCollisionEnter(Collision col) {
-      GameObject explosion = (GameObject) Instantiate(Resources.Load("Detonator-Tiny"));
-      Instantiate(explosion);
-      explosion.transform.position = transform.position;
+      Instantiate(prefab, transform.position, transform.rotation);
       Destroy(gameObject);
    }
 }

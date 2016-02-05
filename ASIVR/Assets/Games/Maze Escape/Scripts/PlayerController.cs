@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-
    public float movementSpeed = 1.0f;
+
    private bool moveforward = false;
    private Vector3 forward;
 
