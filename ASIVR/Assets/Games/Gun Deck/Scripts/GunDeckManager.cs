@@ -10,7 +10,6 @@ public class GunDeckManager : MonoBehaviour {
 
    }
 
-   // Update is called once per frame
    void Update() {
       if(playerHealth <= 0) {
          SceneManager.LoadScene("GunDeckLeaderboard");
