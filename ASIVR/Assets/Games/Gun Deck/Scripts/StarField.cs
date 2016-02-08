@@ -12,10 +12,6 @@ public class StarField : MonoBehaviour {
 
    void Start() {
       starParticleSystem = transform;
-   }
-
-
-   private void CreateStars() {
       stars = new ParticleSystem.Particle[numOfStars];
       for(int i = 0; i < numOfStars; i++) {
          stars[i].position = Random.insideUnitSphere * starDistance + starParticleSystem.position;
@@ -25,9 +21,6 @@ public class StarField : MonoBehaviour {
    }
 
    void Update() {
-      if(stars == null)
-         CreateStars();
-
       for(int i = 0; i < numOfStars; i++) {
          if((stars[i].position - starParticleSystem.position).sqrMagnitude > (starDistance * starDistance)) {
             stars[i].position = Random.insideUnitSphere.normalized * starDistance + starParticleSystem.position;
