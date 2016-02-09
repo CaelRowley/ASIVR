@@ -20,7 +20,7 @@ public class LeadeerBoardDisplay : MonoBehaviour {
 
    private string highScoreKey;
 
-   // Reads highscores fro mthe PlayerPrefs and assigns them to the Text fields
+   // Reads highscores from the PlayerPrefs and assigns them to the Text fields
    void Start() {
       for(int i = 0; i < highScores.Length; i++) {
          highScoreKey = highScoreGameKey + (i + 1).ToString();

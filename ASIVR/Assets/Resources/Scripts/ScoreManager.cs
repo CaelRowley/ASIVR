@@ -11,6 +11,7 @@ public class ScoreManager : MonoBehaviour {
    private int bestScore;
    private string highScoreKey;
 
+   // Starts the timer and reads current highscores
    void Start() {
       StartCoroutine("Timer");
 
@@ -25,6 +26,7 @@ public class ScoreManager : MonoBehaviour {
       }
    }
 
+   // Saves highscore where the higher the score the better
    void SaveScoreHighest() {
       for(int i = 0; i < bestScores.Length; i++) {
          highScoreKey = highScoreGameKey + (i + 1).ToString();
@@ -38,6 +40,7 @@ public class ScoreManager : MonoBehaviour {
       PlayerPrefs.Save();
    }
 
+   // Saves highscore where the lower the score the better
    void SaveScoreLowest() {
       for(int i = 0; i < bestScores.Length; i++) {
          highScoreKey = highScoreGameKey + (i + 1).ToString();

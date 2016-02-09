@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class StarField : MonoBehaviour {
+
    public int numOfStars = 100;
    public float starSize = 1;
    public float starDistance = 10;
@@ -10,6 +11,7 @@ public class StarField : MonoBehaviour {
    private Transform starParticleSystem;
    private ParticleSystem.Particle[] stars;
 
+   // Assigns each particle a postion, colour and size
    void Start() {
       starParticleSystem = transform;
       stars = new ParticleSystem.Particle[numOfStars];
@@ -22,10 +24,12 @@ public class StarField : MonoBehaviour {
 
    void Update() {
       for(int i = 0; i < numOfStars; i++) {
+         // If particle lies outside the sphere it is given a new random position inside the sphere
          if((stars[i].position - starParticleSystem.position).sqrMagnitude > (starDistance * starDistance)) {
             stars[i].position = Random.insideUnitSphere.normalized * starDistance + starParticleSystem.position;
          }
-
+    
+         // Removes particles from view if they are withing the clip distance
          if((stars[i].position - starParticleSystem.position).sqrMagnitude <= (starClipDistance * starClipDistance)) {
             float percent = (stars[i].position - starParticleSystem.position).sqrMagnitude / (starClipDistance * starClipDistance);
             stars[i].startColor = new Color(1, 1, 1, percent);

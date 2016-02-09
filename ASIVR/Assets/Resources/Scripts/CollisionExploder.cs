@@ -2,10 +2,12 @@
 using System.Collections;
 
 public class CollisionExploder : MonoBehaviour {
-   public Transform prefab;
 
+   public Transform prefabExplosion;
+
+   // Destroys both objects and instantiates the explosion prefab on collision
    void OnCollisionEnter(Collision col) {
-      Instantiate(prefab, transform.position, transform.rotation);
+      Instantiate(prefabExplosion, transform.position, transform.rotation);
       Destroy(gameObject);
    }
 }
