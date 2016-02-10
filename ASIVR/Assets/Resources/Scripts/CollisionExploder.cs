@@ -8,6 +8,7 @@ public class CollisionExploder : MonoBehaviour {
    // Destroys both objects and instantiates the explosion prefab on collision
    void OnCollisionEnter(Collision col) {
       Instantiate(prefabExplosion, transform.position, transform.rotation);
+      Destroy(col.gameObject);
       Destroy(gameObject);
    }
 }
