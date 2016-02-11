@@ -5,11 +5,11 @@ using System.Collections.Generic;
 public class CreateTrack : MonoBehaviour {
 
    public Transform prefab;
+   public int numOfTracks = 3;
 
    private LinkedList<Transform> tracks = new LinkedList<Transform>();
-
    private float posY = 0.0f;
-   private int numOfTracks = 3;
+   
 
    // Use this for initialization 
    void Start() {
