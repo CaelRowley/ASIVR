@@ -30,7 +30,7 @@ public class UFOAI : MonoBehaviour {
       transform.position = Vector3.MoveTowards(transform.position, targetToFollow.transform.position, speedMovement * Time.deltaTime);
 
       // 270f is uprightpostiion for the UFO
-      if(transform.eulerAngles.x > 271f || transform.eulerAngles.x < 269f)
+      if(transform.eulerAngles.x != 270.0f)
          transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 10 * speedRotate * Time.deltaTime);
    }
 

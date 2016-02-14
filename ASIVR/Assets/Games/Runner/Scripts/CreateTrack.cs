@@ -4,44 +4,68 @@ using System.Collections.Generic;
 
 public class CreateTrack : MonoBehaviour {
 
-   public Transform prefab;
-   public int numOfTracks = 3;
+   // For the track
+   public Transform trackPrefab;
+   public int numOfTracks = 5;
+   public float trackPosY = 0.0f;
 
-   private LinkedList<Transform> tracks = new LinkedList<Transform>();
-   private float posY = 0.0f;
-   
+   private LinkedList<Transform> trackList = new LinkedList<Transform>();
 
-   // Use this for initialization 
+   // For the obstacles
+   public Transform[] obstacles;
+   public float obstaclePosY = 0.0f;
+
+   private LinkedList<Transform> obstacleList = new LinkedList<Transform>();
+
    void Start() {
-      // Init the scene with some road-pieces 
+      Transform track = null;
+
+      // Creates and postiions the initial tracks
       for(int i = 0; i < numOfTracks; i++) {
-         Transform track = Instantiate(prefab) as Transform;
-         track.Translate(0, 0, i * track.localScale.z);
-         print(track.transform.position);
-         tracks.AddLast(track);
+         track = Instantiate(trackPrefab) as Transform;
+         track.Translate(0, trackPosY, i * track.localScale.z);
+         trackList.AddLast(track);
+      }
+
+      // Creates and positions the initial obstacles
+      for(int i = 0; i < obstacles.Length; i++) {
+         Transform obstacle = Instantiate(obstacles[i]) as Transform;
+         obstacle.Translate(0, obstaclePosY, (numOfTracks / 2) * track.localScale.z);
+         obstacleList.AddLast(obstacle);
       }
    }
-   // Update is called once per frame 
+
    void Update() {
+      Transform firstTrack = trackList.First.Value;
+      Transform lastTrack = trackList.Last.Value;
 
-      Transform firstTrack = tracks.First.Value;
-      Transform lastTrack = tracks.Last.Value;
-
-      if(firstTrack.localPosition.z < -5f) {
-         tracks.Remove(firstTrack);
+      // Removes the first track and adds a new one
+      if(firstTrack.localPosition.z < -5.0f) {
+         trackList.Remove(firstTrack);
          Destroy(firstTrack.gameObject);
 
-         Transform newTrack = Instantiate(prefab, new Vector3(0, 
-                                                              posY, 
-                                                              lastTrack.localPosition.z + lastTrack.localScale.z), 
+         Transform newTrack = Instantiate(trackPrefab, new Vector3(0,
+                                                              trackPosY,
+                                                              lastTrack.localPosition.z + lastTrack.localScale.z),
                                                               Quaternion.identity) as Transform;
-         tracks.AddLast(newTrack);
+         trackList.AddLast(newTrack);
       }
 
-      // Create a new road if the first one is not 
-      // in sight anymore and destroy the first 
-      foreach(Transform road in tracks) {
-         road.Translate(0, 0, -8f * Time.deltaTime);
+      // Moves each track forward
+      foreach(Transform track in trackList) {
+         track.Translate(0, 0, -8f * Time.deltaTime);
+      }
+
+      // Moves obstacle back
+      foreach(Transform obstacle in obstacleList) {
+         if(obstacle.localPosition.z < -5.0f) {
+            obstacle.Translate(0, 0, (numOfTracks / 2) * firstTrack.localScale.z);
+         }
+      }
+
+      // Moves each obstacle forward
+      foreach(Transform obstacle in obstacleList) {
+         obstacle.Translate(0, trackPosY, -8f * Time.deltaTime);
       }
    }
 }

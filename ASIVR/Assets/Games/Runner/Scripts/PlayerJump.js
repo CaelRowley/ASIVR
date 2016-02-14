@@ -11,20 +11,21 @@ private var currentAcceleration : Vector3;
 private var shake : Vector3;
 
 
-function Start()
-{
+function Start() {
     shakeLimit *= shakeLimit;
     startAcceleration = Input.acceleration;
 }
 
-function Update()
-{
+function Update() {
     currentAcceleration = Input.acceleration;
     startAcceleration = Vector3.Lerp(startAcceleration, currentAcceleration, minShakeFilter);
     shake = currentAcceleration - startAcceleration;
 
-    if (shake.sqrMagnitude >= shakeLimit)
-    {
+    if (shake.sqrMagnitude >= shakeLimit) {
+        transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime, Space.World);
+    }
+
+    if(Cardboard.SDK.Triggered) {
         transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime, Space.World);
     }
 }
