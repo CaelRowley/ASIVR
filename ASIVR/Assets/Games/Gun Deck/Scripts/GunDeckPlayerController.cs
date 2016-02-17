@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class GunDeckPlayerController : MonoBehaviour {
-
    public float movementSpeed = 1.0f;
 
    private bool moveforward = false;
