@@ -2,14 +2,16 @@
 using System.Collections;
 
 public class DrunkSwayEffect : MonoBehaviour {
-
    public float drinkSpeedEffect = 1.0f;
    public float drinkForceEffect = 0.1f;
+   public float maxDrinkSpeedEffect = 10.0f;
+   public float maxDrinkForceEffect = 0.5f;
 
    private float loopDuration = 30.0f;
    private float shakeSpeed = 0.0f;
    private float shakeForce = 0.0f;
-   private int maxCups;
+   private int maxBeerCups;
+   private int maxWaterCups;
 
    // Starts a new Shake coroutine and ends all others
    public void StartShake() {
@@ -19,17 +21,27 @@ public class DrunkSwayEffect : MonoBehaviour {
 
    // Assigns the intitial number of cups in the scene to maxCups
    public void Start() {
-      maxCups = GameObject.FindGameObjectsWithTag("BeerCup").Length;
+      maxBeerCups = GameObject.FindGameObjectsWithTag("BeerCup").Length;
+      maxWaterCups = GameObject.FindGameObjectsWithTag("WaterCup").Length;
    }
 
-   // When a cup is removed start the Shake coroutine and increment shake speed and shake force
    public void Update() {
-      int currentCups = GameObject.FindGameObjectsWithTag("BeerCup").Length;
+      int currentBeerCups = GameObject.FindGameObjectsWithTag("BeerCup").Length;
+      int currentWaterCups = GameObject.FindGameObjectsWithTag("WaterCup").Length;
 
-      if(currentCups < maxCups) {
+      // When a beer cup is removed start the shake coroutine and increment shake speed and shake force
+      if(currentBeerCups < maxBeerCups) {
          shakeSpeed += drinkSpeedEffect;
          shakeForce += drinkForceEffect;
-         maxCups--;
+         maxBeerCups--;
+         StartShake();
+      }
+
+      // When a water cup is removed start the shake coroutine and deducts from the shake speed and shake force
+      if(currentWaterCups < maxWaterCups && shakeSpeed > 0.0f && shakeForce > 0.0f) {
+         shakeSpeed -= drinkSpeedEffect;
+         shakeForce -= drinkForceEffect;
+         maxWaterCups--;
          StartShake();
       }
    }

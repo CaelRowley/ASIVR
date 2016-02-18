@@ -7,6 +7,7 @@ public class CreateObstacles : MonoBehaviour {
    public Transform[] obstaclePrefabs;
    public int numOfObstaclesToSpawn;
    public float spawnTime;
+   public float trackSpeed;
 
    private float spawnTimer;
    private List<Transform> obstacleList = new List<Transform>();
@@ -14,7 +15,15 @@ public class CreateObstacles : MonoBehaviour {
    private float trackLength;
    private int numOfTracks;
 
-   void Start() {
+   private GameObject player;
+   private RunnerScoreManager runnerScore;
+
+   IEnumerator Start() {
+      player = GameObject.Find("Player");
+      runnerScore = player.GetComponent<RunnerScoreManager>();
+      trackSpeed = -trackSpeed;
+
+      yield return new WaitForSeconds(0.1f);
       trackLength = GameObject.FindGameObjectWithTag("Track").transform.localScale.z;
       numOfTracks = GameObject.FindGameObjectsWithTag("Track").Length;
       SpawnObstacles();
@@ -38,7 +47,7 @@ public class CreateObstacles : MonoBehaviour {
 
       // Moves each obstacle forward
       foreach(Transform obstacle in obstacleList) {
-         obstacle.transform.Translate(0, 0, -8f * Time.deltaTime);
+         obstacle.transform.Translate(0, 0, (trackSpeed - runnerScore.currentScore) * Time.deltaTime);
       }
    }
 
@@ -49,7 +58,7 @@ public class CreateObstacles : MonoBehaviour {
       // Spawns the obstacles and adds them to the obstacle list
       for(int i = 0; i < numOfObstaclesToSpawn; i++) {
          Transform obstacle = Instantiate(obstaclePrefabs[Random.Range(0, obstaclePrefabs.Length)]) as Transform;
-         obstacle.transform.Translate(0, 0, (numOfTracks * trackLength) - Random.Range(0, trackLength * 2));
+         obstacle.transform.Translate(0, 0, (numOfTracks * trackLength) - Random.Range(0, trackLength));
          obstacleList.Add(obstacle);
       }
    }

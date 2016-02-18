@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class ShootScript : MonoBehaviour {
-
    public Rigidbody projectile;
    public float speed = 50;
    public float delay = 0.0f;

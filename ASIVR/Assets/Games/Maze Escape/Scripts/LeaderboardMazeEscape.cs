@@ -24,7 +24,6 @@ public class LeaderboardMazeEscape : MonoBehaviour {
       for(int i = 0; i < highScores.Length; i++) {
          highScoreKey = highScoreGameKey + (i + 1).ToString();
          highScores[i] = PlayerPrefs.GetInt(highScoreKey, 0);
-         print(highScores[i] + " = " + highScoreKey);
       }
 
       highScore1.text = "1: " + highScores[0].ToString();

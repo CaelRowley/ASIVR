@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class StarField : MonoBehaviour {
-
    public int numOfStars = 100;
    public float starSize = 1;
    public float starDistance = 10;
@@ -28,7 +27,7 @@ public class StarField : MonoBehaviour {
          if((stars[i].position - starParticleSystem.position).sqrMagnitude > (starDistance * starDistance)) {
             stars[i].position = Random.insideUnitSphere.normalized * starDistance + starParticleSystem.position;
          }
-    
+
          // Removes particles from view if they are withing the clip distance
          if((stars[i].position - starParticleSystem.position).sqrMagnitude <= (starClipDistance * starClipDistance)) {
             float percent = (stars[i].position - starParticleSystem.position).sqrMagnitude / (starClipDistance * starClipDistance);

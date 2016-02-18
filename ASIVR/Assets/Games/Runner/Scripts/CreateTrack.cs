@@ -6,10 +6,16 @@ public class CreateTrack : MonoBehaviour {
    public float endOfTrackZValue;
    public Transform trackPrefab;
    public int numOfTracks = 5;
+   public float trackSpeed;
 
    private LinkedList<Transform> trackList = new LinkedList<Transform>();
+   private GameObject player;
+   private RunnerScoreManager runnerScore;
 
    void Start() {
+      player = GameObject.Find("Player");
+      runnerScore = player.GetComponent<RunnerScoreManager>();
+      trackSpeed = -trackSpeed;
       Transform track = null;
 
       // Creates and positions the tracks
@@ -36,7 +42,7 @@ public class CreateTrack : MonoBehaviour {
 
       // Moves each track forward
       foreach(Transform track in trackList) {
-         track.Translate(0, 0, -8f * Time.deltaTime);
+         track.Translate(0, 0, (trackSpeed - runnerScore.currentScore) * Time.deltaTime);
       }
    }
 }

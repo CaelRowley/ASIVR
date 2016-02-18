@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class UFOAI : MonoBehaviour {
-
    public float speedMovement;
    public string targetName;
    public float spinDegree;
@@ -26,6 +25,7 @@ public class UFOAI : MonoBehaviour {
 
    // Moves torwards the target each frame and roates towards target rotation
    void Update() {
+      // Spinsthe UFO
       transform.Rotate(Vector3.forward, spinDegree * Time.deltaTime);
       transform.position = Vector3.MoveTowards(transform.position, targetToFollow.transform.position, speedMovement * Time.deltaTime);
 
@@ -35,8 +35,8 @@ public class UFOAI : MonoBehaviour {
    }
 
    // Destroys gameObject and instantiates the explosion prefab on collision
-   void OnCollisionEnter(Collision col) {
-      if(col.gameObject.tag != "Enemy") {
+   void OnCollisionEnter(Collision collision) {
+      if(collision.gameObject.tag != "Enemy") {
          Instantiate(prefabExplosion, transform.position, transform.rotation);
          Destroy(gameObject);
       }

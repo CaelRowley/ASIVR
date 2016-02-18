@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class ScoreManager : MonoBehaviour {
-
    public string highScoreGameKey;
    public bool bestScoreHigh;
 

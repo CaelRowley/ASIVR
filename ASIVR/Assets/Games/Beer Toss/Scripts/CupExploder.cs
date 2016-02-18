@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class CupExploder : MonoBehaviour {
-
    public float collisionTimeRequired = 1.0f;
    public Transform prefabExplosion;
 

@@ -2,15 +2,15 @@
 using System.Collections;
 
 public class SpawnEnemy : MonoBehaviour {
+   public Rigidbody enemy;
+   public float rotationX;
+   public float rotationY;
+   public float rotationZ;
 
    public float offsetRadius = 0;
    public float offsetSphereX;
    public float offsetSphereY;
    public float offsetSphereZ;
-   public Rigidbody enemy;
-   public float rotationX;
-   public float rotationY;
-   public float rotationZ;
    public float spawnTimer;
 
    private Quaternion rotation;
