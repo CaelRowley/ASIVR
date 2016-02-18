@@ -62,6 +62,11 @@ public class PlayerControls : MonoBehaviour {
          transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime, Space.World);
       }
 
+      if(Input.GetKeyDown("space")) {
+         move = false;
+         transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime * 3, Space.World);
+      }
+
       //if(transform.position.y == playerPositionY)
       //isJumping = false;
    }
