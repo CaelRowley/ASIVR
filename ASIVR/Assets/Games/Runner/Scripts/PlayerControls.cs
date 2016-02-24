@@ -29,9 +29,8 @@ public class PlayerControls : MonoBehaviour {
    }
 
    void Update() {
-      // Toggles movement with the magnet switch
-      if(Cardboard.SDK.Triggered)
-         move = !move;
+      if(transform.position.y >= (playerPositionY -0.05) && transform.position.y <= (playerPositionY + 0.05) && !move)
+         move = true;
 
       // Moves the player when they toggle the magnet and ristricts movement to the x and y axis
       if(move) {
@@ -56,9 +55,8 @@ public class PlayerControls : MonoBehaviour {
       startAcceleration = Vector3.Lerp(startAcceleration, currentAcceleration, jumpMinShakeFilter);
       shake = currentAcceleration - startAcceleration;
 
-      if(shake.sqrMagnitude >= jumpShakeLimit && !isJumping) {
+      if(shake.sqrMagnitude >= jumpShakeLimit && move) {
          move = false;
-         //isJumping = true;
          transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime, Space.World);
       }
 
@@ -66,8 +64,5 @@ public class PlayerControls : MonoBehaviour {
          move = false;
          transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime * 3, Space.World);
       }
-
-      //if(transform.position.y == playerPositionY)
-      //isJumping = false;
    }
 }

@@ -2,36 +2,77 @@
 using System.Collections;
 
 public class UFOAI : MonoBehaviour {
-   public float speedMovement;
-   public string targetName;
-   public float spinDegree;
+   public float defaultSpeed;
+   public float currentSpeed;
+   public float acceleration;
+   public float minimumSpeed;
+   public float maximumSpeed;
+   public float rotationSpeed;
 
-   public float speedRotate;
-   public float targetRotationX;
-   public float targetRotationY;
-   public float targetRotationZ;
+   public float dangerZone;
+   public string targetName;
+   public float attackRange;
+
+   public Rigidbody projectile;
+   public float projectileSpeed;
+   public float fireRate;
 
    public Transform prefabExplosion;
 
-   private Quaternion targetSpinRotation;
-   private Quaternion targetRotation;
-   private GameObject targetToFollow;
+   private Transform targetToFollow;
+   private float distanceToTarget;
+   private Transform UFO;
+   private bool isTooClose = false;
+   private bool inRange = false;
 
-   // Assigns the target to follow and target rotation
    void Start() {
-      targetRotation = Quaternion.Euler(new Vector3(targetRotationX, targetRotationY, targetRotationZ));
-      targetToFollow = GameObject.FindGameObjectWithTag(targetName);
+      currentSpeed = defaultSpeed;
+      UFO = transform;
+      targetToFollow = GameObject.FindGameObjectWithTag(targetName).transform;
+
+      InvokeRepeating("Shoot", 2, fireRate);
    }
 
-   // Moves torwards the target each frame and roates towards target rotation
    void Update() {
-      // Spinsthe UFO
-      transform.Rotate(Vector3.forward, spinDegree * Time.deltaTime);
-      transform.position = Vector3.MoveTowards(transform.position, targetToFollow.transform.position, speedMovement * Time.deltaTime);
+      distanceToTarget = Vector3.Distance(targetToFollow.position, transform.position);
+      var rotate = Quaternion.LookRotation(targetToFollow.position - transform.position);
+      transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * rotationSpeed);
 
-      // 270f is uprightpostiion for the UFO
-      if(transform.eulerAngles.x != 270.0f)
-         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 10 * speedRotate * Time.deltaTime);
+      if(distanceToTarget > attackRange) {
+         currentSpeed += acceleration;
+         currentSpeed = Mathf.Clamp(currentSpeed, minimumSpeed, maximumSpeed);
+      } else if(distanceToTarget <= dangerZone) {
+         float targetSpeed = defaultSpeed;
+
+         if(targetSpeed < currentSpeed) {
+            currentSpeed -= acceleration;
+            currentSpeed = Mathf.Clamp(currentSpeed, targetSpeed, maximumSpeed);
+         } else if(targetSpeed > currentSpeed) {
+            currentSpeed += acceleration;
+            currentSpeed = Mathf.Clamp(currentSpeed, minimumSpeed, targetSpeed);
+         }
+         isTooClose = true;
+      }
+      if(!isTooClose)
+         transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
+      else
+         transform.Translate(Vector3.back * currentSpeed * Time.deltaTime);
+
+      if(distanceToTarget > attackRange)
+         inRange = false;
+      else
+         inRange = true;
+
+      if(distanceToTarget > attackRange - 0.5)
+         isTooClose = false;
+   }
+
+   void Shoot() {
+      if(inRange) {
+         Rigidbody instantiatedProjectile = (Rigidbody) Instantiate(projectile, transform.position, transform.rotation);
+         Physics.IgnoreCollision(instantiatedProjectile.GetComponent<Collider>(), GetComponent<Collider>());
+         instantiatedProjectile.velocity = transform.TransformDirection(new Vector3(0, 0, projectileSpeed));
+      }
    }
 
    // Destroys gameObject and instantiates the explosion prefab on collision
