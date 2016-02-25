@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Games/Main Menu/MainMenu.unity
+- path: Assets/Games/Beer Toss/BeerTossMainMenu.unity
   isLoaded: 1
   isActive: 1
