@@ -7,11 +7,12 @@ public class DrunkSwayEffect : MonoBehaviour {
    public float maxDrinkSpeedEffect = 10.0f;
    public float maxDrinkForceEffect = 0.5f;
 
-   private float loopDuration = 30.0f;
-   private float shakeSpeed = 0.0f;
-   private float shakeForce = 0.0f;
+   public float loopDuration = 30.0f;
+   public float shakeSpeed = 0.0f;
+   public float shakeForce = 0.0f;
    private int maxBeerCups;
    private int maxWaterCups;
+   private Vector3 originalCamPos;
 
    // Starts a new Shake coroutine and ends all others
    public void StartShake() {
@@ -21,6 +22,7 @@ public class DrunkSwayEffect : MonoBehaviour {
 
    // Assigns the intitial number of cups in the scene to maxCups
    public void Start() {
+      originalCamPos = Camera.main.transform.position;
       maxBeerCups = GameObject.FindGameObjectsWithTag("BeerCup").Length;
       maxWaterCups = GameObject.FindGameObjectsWithTag("WaterCup").Length;
    }
@@ -49,13 +51,12 @@ public class DrunkSwayEffect : MonoBehaviour {
       if(shakeSpeed > maxDrinkSpeedEffect)
          shakeSpeed = maxDrinkSpeedEffect;
       if(shakeForce > maxDrinkForceEffect)
-         shakeSpeed = maxDrinkForceEffect;
+         shakeForce = maxDrinkForceEffect;
    }
 
    // Shakes the camera giving the drunk effect
    IEnumerator Shake() {
       float time = 0.0f;
-      Vector3 originalCamPos = Camera.main.transform.position;
       float randomStart = Random.Range(-1000.0f, 1000.0f);
 
       while(time < loopDuration) {
@@ -72,7 +73,7 @@ public class DrunkSwayEffect : MonoBehaviour {
          x *= shakeForce * dampness;
          y *= shakeForce * dampness;
 
-         Camera.main.transform.position = new Vector3(x, y + (originalCamPos.y + 0.1f), originalCamPos.z);
+         Camera.main.transform.position = new Vector3(x, y + originalCamPos.y, originalCamPos.z);
 
          if(time >= loopDuration)
             time = 0.0f;
