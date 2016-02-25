@@ -19,7 +19,7 @@ public class SpawnRigidBody : MonoBehaviour {
       StartCoroutine("SpawnRBOutsideRadius");
    }
 
-   // Spawns enemy in a random sphere outside a certain radius
+   // Spawns rigid body in a random sphere outside a certain radius
    private IEnumerator SpawnRBOutsideRadius() {
       while(true) {
          yield return new WaitForSeconds(spawnTimer);

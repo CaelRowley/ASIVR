@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class StarField : MonoBehaviour {
    public int numOfStars = 100;
@@ -10,10 +9,10 @@ public class StarField : MonoBehaviour {
    private Transform starParticleSystem;
    private ParticleSystem.Particle[] stars;
 
-   // Assigns each particle a postion, colour and size
    void Start() {
       starParticleSystem = transform;
       stars = new ParticleSystem.Particle[numOfStars];
+      // Assigns each particle a postion, colour and size
       for(int i = 0; i < numOfStars; i++) {
          stars[i].position = Random.insideUnitSphere * starDistance + starParticleSystem.position;
          stars[i].startColor = new Color(1, 1, 1, 1);

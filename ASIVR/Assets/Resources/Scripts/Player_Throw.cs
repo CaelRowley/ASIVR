@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Player_Throw : MonoBehaviour {
-
    public Rigidbody projectile;
    public float speed = 5;
 

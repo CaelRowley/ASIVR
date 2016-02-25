@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class UFOAI : MonoBehaviour {
    public float defaultSpeed;
@@ -21,13 +20,11 @@ public class UFOAI : MonoBehaviour {
 
    private Transform targetToFollow;
    private float distanceToTarget;
-   private Transform UFO;
    private bool isTooClose = false;
    private bool inRange = false;
 
    void Start() {
       currentSpeed = defaultSpeed;
-      UFO = transform;
       targetToFollow = GameObject.FindGameObjectWithTag(targetName).transform;
 
       InvokeRepeating("Shoot", 2, fireRate);
@@ -35,38 +32,37 @@ public class UFOAI : MonoBehaviour {
 
    void Update() {
       distanceToTarget = Vector3.Distance(targetToFollow.position, transform.position);
+
+      // Rotates to look at the target
       var rotate = Quaternion.LookRotation(targetToFollow.position - transform.position);
       transform.rotation = Quaternion.Slerp(transform.rotation, rotate, Time.deltaTime * rotationSpeed);
 
-      if(distanceToTarget > attackRange) {
-         currentSpeed += acceleration;
-         currentSpeed = Mathf.Clamp(currentSpeed, minimumSpeed, maximumSpeed);
-      } else if(distanceToTarget <= dangerZone) {
-         float targetSpeed = defaultSpeed;
-
-         if(targetSpeed < currentSpeed) {
-            currentSpeed -= acceleration;
-            currentSpeed = Mathf.Clamp(currentSpeed, targetSpeed, maximumSpeed);
-         } else if(targetSpeed > currentSpeed) {
-            currentSpeed += acceleration;
-            currentSpeed = Mathf.Clamp(currentSpeed, minimumSpeed, targetSpeed);
-         }
-         isTooClose = true;
-      }
+      // Moves to or away from target
       if(!isTooClose)
          transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
       else
-         transform.Translate(Vector3.back * currentSpeed * Time.deltaTime);
+         transform.Translate(Vector3.back * defaultSpeed * Time.deltaTime);
 
+      // Toggles in range
       if(distanceToTarget > attackRange)
          inRange = false;
       else
          inRange = true;
 
-      if(distanceToTarget > attackRange - 0.5)
+      // Toggles is too close
+      if(distanceToTarget <= dangerZone)
+         isTooClose = true;
+      else if(distanceToTarget > attackRange - 0.5)
          isTooClose = false;
+
+      // Increase acceleration if away from target
+      if(distanceToTarget > attackRange) {
+         currentSpeed += acceleration;
+         currentSpeed = Mathf.Clamp(currentSpeed, minimumSpeed, maximumSpeed);
+      }
    }
 
+   // Spawns projectile
    void Shoot() {
       if(inRange) {
          Rigidbody instantiatedProjectile = (Rigidbody) Instantiate(projectile, transform.position, transform.rotation);
@@ -79,6 +75,7 @@ public class UFOAI : MonoBehaviour {
    void OnCollisionEnter(Collision collision) {
       if(collision.gameObject.tag != "Enemy") {
          Instantiate(prefabExplosion, transform.position, transform.rotation);
+         Destroy(collision.gameObject);
          Destroy(gameObject);
       }
    }

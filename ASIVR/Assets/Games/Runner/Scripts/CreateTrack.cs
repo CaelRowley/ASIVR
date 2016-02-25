@@ -31,6 +31,9 @@ public class CreateTrack : MonoBehaviour {
       }
 
       trackLength = track.transform.localScale.z;
+
+      // Initialises obstacles
+      SpawnObstacles();
    }
 
    void Update() {

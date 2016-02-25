@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class RunnerScoreManager : MonoBehaviour {
    public string highScoreGameKey;
@@ -23,6 +22,7 @@ public class RunnerScoreManager : MonoBehaviour {
       }
    }
 
+   // Adds score on collision with a PickUp and moves the pickup out of view to die
    void OnCollisionEnter(Collision collision) {
       if(collision.gameObject.tag == "PickUp") {
          currentScore++;

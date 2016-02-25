@@ -44,6 +44,12 @@ public class DrunkSwayEffect : MonoBehaviour {
          maxWaterCups--;
          StartShake();
       }
+
+      // Prevents shake speed and shake force from going over the maximum
+      if(shakeSpeed > maxDrinkSpeedEffect)
+         shakeSpeed = maxDrinkSpeedEffect;
+      if(shakeForce > maxDrinkForceEffect)
+         shakeSpeed = maxDrinkForceEffect;
    }
 
    // Shakes the camera giving the drunk effect
@@ -54,22 +60,26 @@ public class DrunkSwayEffect : MonoBehaviour {
 
       while(time < loopDuration) {
          time += Time.deltaTime;
+
          // Gets less intense over time using intensity and dampness
          float intensity = time / loopDuration;
          float dampness = 1.0f - Mathf.Clamp(2.0f * intensity - 1.0f, 0.0f, 1.0f);
          float sway = randomStart + shakeSpeed * intensity;
+
          // Uses the SimplexNoise utility to create a random sway based on the Perlin noise
          float x = Util.SimplexNoise.Noise(sway, 0.0f, 0.0f) * 2.0f - 1.0f;
          float y = Util.SimplexNoise.Noise(0.0f, sway, 0.0f) * 2.0f - 1.0f;
          x *= shakeForce * dampness;
          y *= shakeForce * dampness;
-         Camera.main.transform.position = new Vector3(x, y + 1.5f, originalCamPos.z);
+
+         Camera.main.transform.position = new Vector3(x, y + (originalCamPos.y + 0.1f), originalCamPos.z);
 
          if(time >= loopDuration)
             time = 0.0f;
 
          yield return null;
       }
+
       Camera.main.transform.position = originalCamPos;
    }
 }

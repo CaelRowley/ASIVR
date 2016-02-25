@@ -65,6 +65,7 @@ public class ScoreManager : MonoBehaviour {
       }
    }
 
+   // Saves highscore on death
    void OnDestroy() {
       if(bestScoreHigh)
          SaveScoreHighest();

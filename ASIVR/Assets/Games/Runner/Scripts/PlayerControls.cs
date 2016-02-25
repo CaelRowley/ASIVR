@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerControls : MonoBehaviour {
    public float movementSpeed;
@@ -15,10 +14,9 @@ public class PlayerControls : MonoBehaviour {
    private float trackWidth;
 
    private float jumpMinShakeFilter;
-   private Vector3 startAcceleration = Vector3.zero;
-   private Vector3 currentAcceleration;
+   private Vector3 currentAcceleration = Vector3.zero;
+   private Vector3 startAcceleration;
    private Vector3 shake;
-   private bool isJumping = false;
 
    void Start() {
       jumpMinShakeFilter = jumpUpdateTime / jumpFilterStrength;
@@ -29,10 +27,11 @@ public class PlayerControls : MonoBehaviour {
    }
 
    void Update() {
-      if(transform.position.y >= (playerPositionY -0.05) && transform.position.y <= (playerPositionY + 0.05) && !move)
+      // Move is true when the players position is roughly on the ground
+      if(transform.position.y >= (playerPositionY - 0.05) && transform.position.y <= (playerPositionY + 0.05) && !move)
          move = true;
 
-      // Moves the player when they toggle the magnet and ristricts movement to the x and y axis
+      // If Move is true locks movement to left and right on the track
       if(move) {
          transform.position += Camera.main.transform.forward * Time.deltaTime * movementSpeed;
 
@@ -50,19 +49,21 @@ public class PlayerControls : MonoBehaviour {
          }
       }
 
-      // The player jumps when the shake goes over the shake limit
-      currentAcceleration = Input.acceleration;
-      startAcceleration = Vector3.Lerp(startAcceleration, currentAcceleration, jumpMinShakeFilter);
-      shake = currentAcceleration - startAcceleration;
+      // Finds the current shake of the accelerometer  
+      startAcceleration = Input.acceleration;
+      currentAcceleration = Vector3.Lerp(currentAcceleration, startAcceleration, jumpMinShakeFilter);
+      shake = startAcceleration - currentAcceleration;
 
-      if(shake.sqrMagnitude >= jumpShakeLimit && move) {
+      // The player jumps when the shake goes over the shake limit
+      if(shake.sqrMagnitude >= jumpShakeLimit) {
          move = false;
          transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime, Space.World);
       }
 
+      // The player jumps when space is pressed
       if(Input.GetKeyDown("space")) {
          move = false;
-         transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime * 3, Space.World);
+         transform.Translate(Vector3.up * jumpSpeed * 4 * Time.deltaTime * 3, Space.World);
       }
    }
 }
