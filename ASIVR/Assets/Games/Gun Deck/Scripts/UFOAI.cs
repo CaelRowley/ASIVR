@@ -73,7 +73,7 @@ public class UFOAI : MonoBehaviour {
 
    // Destroys gameObject and instantiates the explosion prefab on collision
    void OnCollisionEnter(Collision collision) {
-      if(collision.gameObject.tag != "Enemy") {
+      if(collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "HealthBox" && collision.gameObject.tag != "Player") {
          Instantiate(prefabExplosion, transform.position, transform.rotation);
          Destroy(collision.gameObject);
          Destroy(gameObject);

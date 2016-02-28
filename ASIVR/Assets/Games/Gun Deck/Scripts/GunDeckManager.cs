@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 
 public class GunDeckManager : MonoBehaviour {
+   public Transform prefabExplosion;
    public int playerHealth = 3;
 
    // If the player reaches 0 health the game is over and the leaderboard scene is loaded
@@ -18,6 +19,8 @@ public class GunDeckManager : MonoBehaviour {
          Destroy(collision.gameObject);
          playerHealth++;
       } else {
+         Instantiate(prefabExplosion, collision.transform.position, collision.transform.rotation);
+         Destroy(collision.gameObject);
          playerHealth--;
       }
    }
