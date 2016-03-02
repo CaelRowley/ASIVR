@@ -14,6 +14,7 @@ public class BackgroundMusic : MonoBehaviour {
          GameObject child = new GameObject("Player");
          child.transform.parent = gameObject.transform;
          audioSources[i] = child.AddComponent<AudioSource>();
+         audioSources[i].volume = 0.3f;
       }
       nextLoopTime = AudioSettings.dspTime + 1.0f;
    }

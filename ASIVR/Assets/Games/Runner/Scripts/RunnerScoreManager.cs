@@ -3,6 +3,7 @@
 public class RunnerScoreManager : MonoBehaviour {
    public string highScoreGameKey;
    public bool bestScoreHigh;
+   public float endOfTrackZValue;
 
    private int[] bestScores = new int[5];
    public int currentScore;
@@ -26,7 +27,8 @@ public class RunnerScoreManager : MonoBehaviour {
    void OnCollisionEnter(Collision collision) {
       if(collision.gameObject.tag == "PickUp") {
          currentScore++;
-         collision.transform.Translate(0, 0, -30);
+         // Moves object to the end of the track so its own destructor will activate
+         collision.transform.Translate(0, 0, endOfTrackZValue);
       }
    }
 

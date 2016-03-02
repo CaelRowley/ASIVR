@@ -17,7 +17,7 @@ public class CreatePickUps : MonoBehaviour {
    private float trackLength;
    private float trackWidth;
    private int numOfTracks;
-   
+
 
    private GameObject player;
    private RunnerScoreManager runnerScoreManager;
@@ -65,7 +65,7 @@ public class CreatePickUps : MonoBehaviour {
       // Spawns the pick ups and adds them to the pick up list
       for(int i = 0; i < numOfPickUpsToSpawn; i++) {
          Transform pickUp = Instantiate(pickUpPrefabs[Random.Range(0, pickUpPrefabs.Length)]) as Transform;
-         pickUp.transform.Translate(Random.Range(-trackWidth/2, trackWidth/2), Random.Range(minHeight, maxHeight), (numOfTracks * trackLength) - Random.Range(0, trackLength));
+         pickUp.transform.Translate(Random.Range(-trackWidth / 2, trackWidth / 2), Random.Range(minHeight, maxHeight), (numOfTracks * trackLength) - Random.Range(0, trackLength));
          pickUpList.Add(pickUp);
       }
    }
