@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 public class StarField : MonoBehaviour {
-   public int numOfStars = 100;
-   public float starSize = 1;
-   public float starDistance = 10;
-   public float starClipDistance = 1;
+   public int numOfStars;
+   public float starSize;
+   public float starDistance;
+   public float starClipDistance;
 
    private Transform starParticleSystem;
    private ParticleSystem.Particle[] stars;
@@ -15,6 +15,7 @@ public class StarField : MonoBehaviour {
       // Assigns each particle a postion, colour and size
       for(int i = 0; i < numOfStars; i++) {
          stars[i].position = Random.insideUnitSphere * starDistance + starParticleSystem.position;
+         // Assigns colour white to each particle
          stars[i].startColor = new Color(1, 1, 1, 1);
          stars[i].startSize = starSize;
       }

@@ -26,7 +26,6 @@ public class CreatePickUps : MonoBehaviour {
       spawnTimer = spawnTime;
       player = GameObject.Find("Player");
       runnerScoreManager = player.GetComponent<RunnerScoreManager>();
-      trackSpeed = -trackSpeed;
 
       yield return new WaitForSeconds(0.1f);
 

@@ -2,14 +2,14 @@
 using System.Collections;
 
 public class DrunkSwayEffect : MonoBehaviour {
-   public float drinkSpeedEffect = 1.0f;
-   public float drinkForceEffect = 0.1f;
-   public float maxDrinkSpeedEffect = 10.0f;
-   public float maxDrinkForceEffect = 0.5f;
+   public float drinkSpeedEffect;
+   public float drinkForceEffect;
+   public float maxDrinkSpeedEffect;
+   public float maxDrinkForceEffect;
+   public float loopDuration;
 
-   public float loopDuration = 30.0f;
-   public float shakeSpeed = 0.0f;
-   public float shakeForce = 0.0f;
+   private float shakeSpeed;
+   private float shakeForce;
    private int maxBeerCups;
    private int maxWaterCups;
    private Vector3 originalCamPos;

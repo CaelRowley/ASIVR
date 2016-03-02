@@ -3,8 +3,8 @@ using System.Collections;
 
 public class ShootScript : MonoBehaviour {
    public Rigidbody projectile;
-   public float speed = 50;
-   public float delay = 0.0f;
+   public float speed;
+   public float delay;
 
    void Start() {
       StartCoroutine("Shoot");

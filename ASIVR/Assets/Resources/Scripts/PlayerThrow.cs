@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public class Player_Throw : MonoBehaviour {
+public class PlayerThrow : MonoBehaviour {
    public Rigidbody projectile;
-   public float speed = 5;
+   public float speed;
 
    // Spawns projectile when the magnet switch is used
    void Update() {

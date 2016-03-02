@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class CupExploder : MonoBehaviour {
-   public float collisionTimeRequired = 1.0f;
+   public float collisionTimeRequired;
    public Transform prefabExplosion;
 
    private float collisionCurrentTime = 0.0f;

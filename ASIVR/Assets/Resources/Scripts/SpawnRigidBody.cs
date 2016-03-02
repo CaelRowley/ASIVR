@@ -7,7 +7,7 @@ public class SpawnRigidBody : MonoBehaviour {
    public float rotationY;
    public float rotationZ;
 
-   public float offsetRadius = 0;
+   public float offsetRadius;
    public float offsetSphereX;
    public float offsetSphereY;
    public float offsetSphereZ;

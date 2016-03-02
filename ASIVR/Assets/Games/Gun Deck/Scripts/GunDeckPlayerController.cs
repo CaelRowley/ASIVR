@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class GunDeckPlayerController : MonoBehaviour {
-   public float movementSpeed = 1.0f;
+   public float movementSpeed;
 
    private bool moveforward = false;
 

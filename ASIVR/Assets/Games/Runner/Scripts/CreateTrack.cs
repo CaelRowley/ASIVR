@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class CreateTrack : MonoBehaviour {
    public float endOfTrackZValue;
    public Transform trackPrefab;
-   public int numOfTracks = 5;
+   public int numOfTracks;
    public float trackSpeed;
 
    private LinkedList<Transform> trackList = new LinkedList<Transform>();
@@ -20,7 +20,6 @@ public class CreateTrack : MonoBehaviour {
    void Start() {
       player = GameObject.Find("Player");
       runnerScoreManager = player.GetComponent<RunnerScoreManager>();
-      trackSpeed = -trackSpeed;
       Transform track = null;
 
       // Creates and positions the tracks

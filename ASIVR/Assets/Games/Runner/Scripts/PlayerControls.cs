@@ -2,10 +2,10 @@
 
 public class PlayerControls : MonoBehaviour {
    public float movementSpeed;
-   public float jumpSpeed = 10.0f;
-   public float jumpUpdateTime = 1.0f / 60.0f;
-   public float jumpFilterStrength = 1.0f;
-   public float jumpShakeLimit = 1.0f;
+   public float jumpSpeed;
+   public float jumpUpdateTime;
+   public float jumpFilterStrength;
+   public float jumpShakeLimit;
 
    private bool move = false;
    private float playerPositionX;

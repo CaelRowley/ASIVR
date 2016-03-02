@@ -3,6 +3,7 @@
 public class BackgroundMusic : MonoBehaviour {
    public float audioLength;
    public AudioClip[] audioClips = new AudioClip[2];
+   public float volume;
 
    private double nextLoopTime;
    private int currentIndex = 0;
@@ -14,7 +15,7 @@ public class BackgroundMusic : MonoBehaviour {
          GameObject child = new GameObject("Player");
          child.transform.parent = gameObject.transform;
          audioSources[i] = child.AddComponent<AudioSource>();
-         audioSources[i].volume = 0.3f;
+         audioSources[i].volume = volume;
       }
       nextLoopTime = AudioSettings.dspTime + 1.0f;
    }

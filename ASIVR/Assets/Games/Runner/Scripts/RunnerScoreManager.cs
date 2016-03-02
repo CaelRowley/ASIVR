@@ -4,9 +4,9 @@ public class RunnerScoreManager : MonoBehaviour {
    public string highScoreGameKey;
    public bool bestScoreHigh;
    public float endOfTrackZValue;
+   public int currentScore;
 
    private int[] bestScores = new int[5];
-   public int currentScore;
    private int bestScore;
    private string highScoreKey;
 
