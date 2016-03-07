@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class LeadeerBoardDisplay : MonoBehaviour {
+public class LeaderBoardDisplay : MonoBehaviour {
 
    public string highScoreGameKey;
    public int[] highScores = new int[5];
@@ -24,7 +24,6 @@ public class LeadeerBoardDisplay : MonoBehaviour {
       for(int i = 0; i < highScores.Length; i++) {
          highScoreKey = highScoreGameKey + (i + 1).ToString();
          highScores[i] = PlayerPrefs.GetInt(highScoreKey, 0);
-         print(highScores[i] + " = " + highScoreKey);
       }
 
       highScore1.text = "First: " + highScores[0].ToString();
