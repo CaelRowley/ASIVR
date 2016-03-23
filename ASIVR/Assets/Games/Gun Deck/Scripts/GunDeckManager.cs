@@ -2,12 +2,20 @@
 using UnityEngine.SceneManagement;
 
 public class GunDeckManager : MonoBehaviour {
+   public GameObject timerGameObject;
+   SceneTimer sceneTimer;
+
    public Transform prefabExplosion;
    public int playerHealth;
 
-   // If the player reaches 0 health the game is over and the leaderboard scene is loaded
+   void Start() {
+      sceneTimer = (SceneTimer) timerGameObject.GetComponent("SceneTimer");
+   }
+
+   // If the player reaches 0 health the game is over, the score is saved and the leaderboard scene is loaded
    void Update() {
       if(playerHealth <= 0) {
+         sceneTimer.SaveScoreHighest();
          SceneManager.LoadScene("GunDeckLeaderboard");
       }
    }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ScoreManager : MonoBehaviour {
+public class SceneTimer : MonoBehaviour {
    public string highScoreGameKey;
    public bool bestScoreHigh;
 
@@ -26,7 +26,7 @@ public class ScoreManager : MonoBehaviour {
    }
 
    // Saves highscore where the higher the score the better
-   void SaveScoreHighest() {
+   public void SaveScoreHighest() {
       for(int i = 0; i < bestScores.Length; i++) {
          highScoreKey = highScoreGameKey + (i + 1).ToString();
          bestScore = PlayerPrefs.GetInt(highScoreKey, 0);
@@ -40,7 +40,7 @@ public class ScoreManager : MonoBehaviour {
    }
 
    // Saves highscore where the lower the score the better
-   void SaveScoreLowest() {
+   public void SaveScoreLowest() {
       for(int i = 0; i < bestScores.Length; i++) {
          highScoreKey = highScoreGameKey + (i + 1).ToString();
          bestScore = PlayerPrefs.GetInt(highScoreKey, 0);
@@ -58,18 +58,11 @@ public class ScoreManager : MonoBehaviour {
       PlayerPrefs.Save();
    }
 
+   // Adds 1 to currentScore every second
    private IEnumerator Timer() {
       while(true) {
          yield return new WaitForSeconds(1);
          currentScore += 1;
       }
-   }
-
-   // Saves highscore on death
-   void OnDestroy() {
-      if(bestScoreHigh)
-         SaveScoreHighest();
-      else
-         SaveScoreLowest();
    }
 }
