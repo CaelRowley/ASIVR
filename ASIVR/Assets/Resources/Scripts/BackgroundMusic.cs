@@ -10,7 +10,7 @@ public class BackgroundMusic : MonoBehaviour {
    private AudioSource[] audioSources = new AudioSource[2];
 
    // Creates audio sources as children to Player
-   void Start() {
+   private void Start() {
       for(int i = 0; i < 2; i++) {
          GameObject child = new GameObject("Player");
          child.transform.parent = gameObject.transform;
@@ -21,7 +21,7 @@ public class BackgroundMusic : MonoBehaviour {
    }
 
    // Plays audio clip after the loop time and switches the index for the next audio clip
-   void Update() {
+   private void Update() {
       double currentTime = AudioSettings.dspTime;
       if(currentTime > nextLoopTime) {
          audioSources[currentIndex].clip = audioClips[currentIndex];

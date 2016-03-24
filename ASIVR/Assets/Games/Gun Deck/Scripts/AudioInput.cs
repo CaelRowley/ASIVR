@@ -8,7 +8,7 @@ public class AudioInput : MonoBehaviour {
    private bool isActive = false;
 
    // Initialises the default microphone and starts recording
-   void InitialiseMicrophone() {
+   private void InitialiseMicrophone() {
       audioSource = GetComponent<AudioSource>();
       audioSource.clip = Microphone.Start(null, true, 1, 44100);
       audioSource.loop = true;
@@ -18,7 +18,7 @@ public class AudioInput : MonoBehaviour {
    }
 
    // Intialises the microphone and sets isActive to true
-   void Start() {
+   private void Start() {
       InitialiseMicrophone();
       isActive = true;
    }
@@ -37,7 +37,7 @@ public class AudioInput : MonoBehaviour {
    }
 
    // Initialises microphone when app is focused and stops it when app is not focused
-   void OnApplicationFocus(bool inFocus) {
+   private void OnApplicationFocus(bool inFocus) {
       if(inFocus) {
          if(!isActive) {
             InitialiseMicrophone();
@@ -49,11 +49,11 @@ public class AudioInput : MonoBehaviour {
       }
    }
 
-   void OnDisable() {
+   private void OnDisable() {
       StopMicrophone();
    }
 
-   void OnDestroy() {
+   private void OnDestroy() {
       StopMicrophone();
    }
 

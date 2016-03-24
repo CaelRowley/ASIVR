@@ -23,14 +23,14 @@ public class UFOAI : MonoBehaviour {
    private bool isTooClose = false;
    private bool inRange = false;
 
-   void Start() {
+   private void Start() {
       currentSpeed = defaultSpeed;
       targetToFollow = GameObject.FindGameObjectWithTag(targetName).transform;
 
       InvokeRepeating("Shoot", 2, fireRate);
    }
 
-   void Update() {
+   private void Update() {
       distanceToTarget = Vector3.Distance(targetToFollow.position, transform.position);
 
       // Rotates to look at the target
@@ -63,7 +63,7 @@ public class UFOAI : MonoBehaviour {
    }
 
    // Spawns projectile
-   void Shoot() {
+   private void Shoot() {
       if(inRange) {
          Rigidbody instantiatedProjectile = (Rigidbody) Instantiate(projectile, transform.position, transform.rotation);
          Physics.IgnoreCollision(instantiatedProjectile.GetComponent<Collider>(), GetComponent<Collider>());
@@ -72,7 +72,7 @@ public class UFOAI : MonoBehaviour {
    }
 
    // Destroys colliding game objects if conditions are met
-   void OnCollisionEnter(Collision collision) {
+   private void OnCollisionEnter(Collision collision) {
       if(collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "HealthBox" && collision.gameObject.tag != "Player") {
          Destroy(collision.gameObject);
          Destroy(gameObject);
@@ -80,7 +80,7 @@ public class UFOAI : MonoBehaviour {
    }
 
    // Instantiates explosion prefab when destroyed
-   void OnDestroy() {
+   private void OnDestroy() {
       Instantiate(prefabExplosion, transform.position, transform.rotation);
    }
 }

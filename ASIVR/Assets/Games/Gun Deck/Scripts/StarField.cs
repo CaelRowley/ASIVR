@@ -9,7 +9,7 @@ public class StarField : MonoBehaviour {
    private Transform starParticleSystem;
    private ParticleSystem.Particle[] stars;
 
-   void Start() {
+   private void Start() {
       starParticleSystem = transform;
       stars = new ParticleSystem.Particle[numOfStars];
       // Assigns each particle a postion, colour and size
@@ -21,7 +21,7 @@ public class StarField : MonoBehaviour {
       }
    }
 
-   void Update() {
+   private void Update() {
       for(int i = 0; i < numOfStars; i++) {
          // If particle lies outside the sphere it is given a new random position inside the sphere
          if((stars[i].position - starParticleSystem.position).sqrMagnitude > (starDistance * starDistance)) {

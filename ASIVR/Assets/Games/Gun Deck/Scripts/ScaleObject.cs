@@ -7,12 +7,12 @@ public class ScaleObject : MonoBehaviour {
    public float targetScaleZ;
    public float scaleTime;
 
-   void Start() {
+   private void Start() {
       StartCoroutine(ScaleOverTime(scaleTime));
    }
 
    // Scales the object over the given time then destroys the object
-   IEnumerator ScaleOverTime(float time) {
+   private IEnumerator ScaleOverTime(float time) {
       Vector3 originalScale = gameObject.transform.localScale;
       Vector3 targetScale = new Vector3(targetScaleX, targetScaleY, targetScaleZ);
       float currentTime = 0.0f;

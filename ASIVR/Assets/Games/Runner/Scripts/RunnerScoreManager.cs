@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class RunnerScoreManager : MonoBehaviour {
    public string highScoreGameKey;
@@ -9,6 +10,9 @@ public class RunnerScoreManager : MonoBehaviour {
    private int[] bestScores = new int[5];
    private int bestScore;
    private string highScoreKey;
+
+   [SerializeField]
+   private Text ScoreHUD = null;
 
    // Starts the timer and reads current highscores
    void Start() {
@@ -27,6 +31,10 @@ public class RunnerScoreManager : MonoBehaviour {
    void OnCollisionEnter(Collision collision) {
       if(collision.gameObject.tag == "PickUp") {
          currentScore++;
+
+         // Displays current score on the HUD
+         ScoreHUD.text = currentScore.ToString();
+
          // Moves object to the end of the track so its own destructor will activate
          collision.transform.Translate(0, 0, endOfTrackZValue);
       }

@@ -15,7 +15,7 @@ public class SpawnRigidBody : MonoBehaviour {
 
    private Quaternion rotation;
 
-   void Start() {
+   private void Start() {
       StartCoroutine("SpawnRBOutsideRadius");
    }
 

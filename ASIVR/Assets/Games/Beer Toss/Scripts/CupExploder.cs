@@ -5,20 +5,20 @@ public class CupExploder : MonoBehaviour {
    public Transform prefabExplosion;
 
    private float collisionCurrentTime = 0.0f;
-   private bool continueTimer;
+   private bool continueTimer = false;
 
    // Flags contact timer true when collision occurs
-   void OnCollisionEnter(Collision col) {
+   private void OnCollisionEnter(Collision col) {
       continueTimer = true;
    }
 
    // Flags contact timer false when collision is over
-   void OnCollisionLeave(Collision col) {
+   private void OnCollisionLeave(Collision col) {
       continueTimer = false;
    }
 
    // Destroys both objects and instantiates the explosion prefab if requirements are met
-   void OnCollisionStay(Collision col) {
+   private void OnCollisionStay(Collision col) {
       collisionCurrentTime += Time.deltaTime;
 
       if(collisionCurrentTime > collisionTimeRequired && continueTimer) {

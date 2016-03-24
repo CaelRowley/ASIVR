@@ -15,19 +15,19 @@ public class DrunkSwayEffect : MonoBehaviour {
    private Vector3 originalCamPos;
 
    // Starts a new Shake coroutine and ends all others
-   public void StartShake() {
+   private void StartShake() {
       StopAllCoroutines();
       StartCoroutine("Shake");
    }
 
    // Assigns the intitial number of cups in the scene to maxCups
-   public void Start() {
+   private void Start() {
       originalCamPos = Camera.main.transform.position;
       maxBeerCups = GameObject.FindGameObjectsWithTag("BeerCup").Length;
       maxWaterCups = GameObject.FindGameObjectsWithTag("WaterCup").Length;
    }
 
-   public void Update() {
+   private void Update() {
       int currentBeerCups = GameObject.FindGameObjectsWithTag("BeerCup").Length;
       int currentWaterCups = GameObject.FindGameObjectsWithTag("WaterCup").Length;
 
@@ -55,7 +55,7 @@ public class DrunkSwayEffect : MonoBehaviour {
    }
 
    // Shakes the camera giving the drunk effect
-   IEnumerator Shake() {
+   private IEnumerator Shake() {
       float time = 0.0f;
       float randomStart = Random.Range(-1000.0f, 1000.0f);
 

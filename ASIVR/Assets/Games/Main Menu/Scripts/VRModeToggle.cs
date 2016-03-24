@@ -18,7 +18,7 @@ public class VRModeToggle : MonoBehaviour {
    }
 
    // Reads playerPrefs int as a bool
-   bool GetBool(string playerPrefKey) {
+   private bool GetBool(string playerPrefKey) {
       return PlayerPrefs.GetInt(playerPrefKey) == 1 ? true : false;
    }
 }

@@ -6,7 +6,7 @@ public class GunDeckPlayerController : MonoBehaviour {
    private bool moveforward = false;
 
    // Toggles move forward with the magnet switch
-   void Update() {
+   private void Update() {
       if(Cardboard.SDK.Triggered)
          moveforward = !moveforward;
 

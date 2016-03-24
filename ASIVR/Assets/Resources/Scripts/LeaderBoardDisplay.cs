@@ -20,7 +20,7 @@ public class LeaderBoardDisplay : MonoBehaviour {
    private string highScoreKey;
 
    // Reads highscores from the PlayerPrefs and assigns them to the Text fields
-   void Start() {
+   private void Start() {
       for(int i = 0; i < highScores.Length; i++) {
          highScoreKey = highScoreGameKey + (i + 1).ToString();
          highScores[i] = PlayerPrefs.GetInt(highScoreKey, 0);

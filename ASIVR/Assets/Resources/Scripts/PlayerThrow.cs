@@ -5,7 +5,7 @@ public class PlayerThrow : MonoBehaviour {
    public float speed;
 
    // Spawns projectile when the magnet switch is used
-   void Update() {
+   private void Update() {
       if(Cardboard.SDK.Triggered) {
          Rigidbody instantiatedProjectile = Instantiate(projectile,
                                                         transform.position,

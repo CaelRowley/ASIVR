@@ -6,7 +6,7 @@ public class ShootScript : MonoBehaviour {
    public float speed;
    public float delay;
 
-   void Start() {
+   private void Start() {
       StartCoroutine("Shoot");
    }
 

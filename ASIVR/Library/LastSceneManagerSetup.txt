@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Games/Gun Deck/GunDeckMainMenu.unity
+- path: Assets/Games/Runner/RunnerGameScene1.unity
   isLoaded: 1
   isActive: 1

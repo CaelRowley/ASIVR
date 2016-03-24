@@ -5,8 +5,8 @@ public class SceneTimer : MonoBehaviour {
    public string highScoreGameKey;
    public bool bestScoreHigh;
 
-   private int[] bestScores = new int[5];
    private int currentScore;
+   private int[] bestScores = new int[5];
    private int bestScore;
    private string highScoreKey;
 
@@ -64,5 +64,9 @@ public class SceneTimer : MonoBehaviour {
          yield return new WaitForSeconds(1);
          currentScore += 1;
       }
+   }
+
+   public int GetCurrentScore() {
+      return currentScore;
    }
 }

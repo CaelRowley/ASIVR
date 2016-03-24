@@ -11,12 +11,12 @@ public class Special_ForceWave : MonoBehaviour {
    private bool isActive = false;
    private AudioInput audioInput;
 
-   void Start() {
+   private void Start() {
       audioInput = (AudioInput) audioInputGameObject.GetComponent("AudioInput");
    }
 
    // Starts CreateForceWave coroutine if conditions are met
-   void Update() {
+   private void Update() {
       float averageVolume = audioInput.GetAverageVolume() * audioSensitivity;
 
       if(!isActive && averageVolume > threshold) {

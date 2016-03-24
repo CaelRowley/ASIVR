@@ -2,7 +2,7 @@
 
 public class VRSettings : MonoBehaviour {
 
-   void Start() {
+   private void Start() {
       string toggleVRModeKey = "toggleVRMode";
       bool VRMode = PlayerPrefs.GetInt(toggleVRModeKey) == 1 ? true : false;
       Cardboard.SDK.VRModeEnabled = VRMode;
