@@ -6,15 +6,25 @@ public class GunDeckManager : MonoBehaviour {
    public GameObject timerGameObject;
    public Transform prefabExplosion;
    public int playerHealth;
+   public int ammoCount;
+   public AudioClip audioClipPickUp;
 
    private SceneTimer sceneTimer;
+   private AudioSource audioSource;
 
    [SerializeField]
    private Text timeHUD = null;
    [SerializeField]
    private Text healthHUD = null;
+   [SerializeField]
+   private Text ammoHUD = null;
 
    private void Start() {
+      // Creates audio source for player
+      GameObject child = new GameObject("Player");
+      child.transform.parent = gameObject.transform;
+      audioSource = child.AddComponent<AudioSource>();
+
       sceneTimer = (SceneTimer) timerGameObject.GetComponent("SceneTimer");
    }
 
@@ -25,27 +35,37 @@ public class GunDeckManager : MonoBehaviour {
          SceneManager.LoadScene("GunDeckLeaderboard");
       }
 
-      // Displays the current time on the HUD
-      timeHUD.text = sceneTimer.GetCurrentScore().ToString();
+      UpdateHUD();
    }
 
    private void OnCollisionEnter(Collision collision) {
-      // If the collision object is a HealthBox increment the players health
-      if(collision.gameObject.tag == "HealthBox") {
+      // If the collision object is a PickUp increment the players health and ammo
+      if(collision.gameObject.tag == "PickUp") {
+         audioSource.PlayOneShot(audioClipPickUp);
          Destroy(collision.gameObject);
          playerHealth++;
-
-         // Displays players health
-         healthHUD.text = playerHealth.ToString();
+         ammoCount++;
       }
       // Else removes health
       else {
          Instantiate(prefabExplosion, collision.transform.position, collision.transform.rotation);
          Destroy(collision.gameObject);
          playerHealth--;
-
-         // Displays players health
-         healthHUD.text = "Health: " + playerHealth.ToString();
       }
+   }
+
+   // Updates the ingame HUD
+   private void UpdateHUD() {
+      timeHUD.text = sceneTimer.GetCurrentScore().ToString();
+      healthHUD.text = "Health: " + playerHealth.ToString();
+      ammoHUD.text = "Ammo: " + ammoCount.ToString();
+   }
+
+   public int getAmmoCount() {
+      return ammoCount;
+   }
+
+   public void setAmmoCount(int newAmmoCount) {
+      this.ammoCount = newAmmoCount;
    }
 }

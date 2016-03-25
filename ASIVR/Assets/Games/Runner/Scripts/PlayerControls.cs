@@ -6,12 +6,14 @@ public class PlayerControls : MonoBehaviour {
    public float jumpUpdateTime;
    public float jumpFilterStrength;
    public float jumpShakeLimit;
+   public AudioClip audioClipJump;
 
    private bool move = false;
    private float playerPositionX;
    private float playerPositionY;
    private float playerPositionZ;
    private float trackWidth;
+   private AudioSource audioSource;
 
    private float jumpMinShakeFilter;
    private Vector3 currentAcceleration = Vector3.zero;
@@ -24,6 +26,11 @@ public class PlayerControls : MonoBehaviour {
       playerPositionY = transform.localPosition.y;
       playerPositionZ = transform.localPosition.z;
       trackWidth = GameObject.FindGameObjectWithTag("Track").transform.localScale.x;
+
+      // Creates audio source for player
+      GameObject child = new GameObject("Player");
+      child.transform.parent = gameObject.transform;
+      audioSource = child.AddComponent<AudioSource>();
    }
 
    void Update() {
@@ -56,12 +63,16 @@ public class PlayerControls : MonoBehaviour {
 
       // The player jumps when the shake goes over the shake limit
       if(shake.sqrMagnitude >= jumpShakeLimit) {
+         if(move)
+            audioSource.PlayOneShot(audioClipJump);
          move = false;
          transform.Translate(Vector3.up * jumpSpeed * Time.deltaTime, Space.World);
       }
 
       // The player jumps when space is pressed
       if(Input.GetKeyDown("space")) {
+         if(move)
+            audioSource.PlayOneShot(audioClipJump);
          move = false;
          transform.Translate(Vector3.up * jumpSpeed * 4 * Time.deltaTime * 3, Space.World);
       }

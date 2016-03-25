@@ -53,7 +53,7 @@ public class CreatePickUps : MonoBehaviour {
 
       // Moves each pick up forward
       foreach(Transform pickUp in pickUpList) {
-         pickUp.transform.Translate(0, 0, (trackSpeed - runnerScoreManager.currentScore) * Time.deltaTime);
+         pickUp.transform.Translate(0, 0, (trackSpeed - runnerScoreManager.currentScore) * Time.deltaTime, Space.World);
       }
    }
 
