@@ -49,8 +49,6 @@ public class Special_ForceWave : MonoBehaviour {
                                                            transform.rotation *= Quaternion.Euler(90, 0, 0))
                                                            as GameObject;
 
-      //instantiatedProjectile.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
-
       // Waits for the projectile animation
       yield return new WaitForSeconds(0.5f);
 

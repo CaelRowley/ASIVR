@@ -27,8 +27,8 @@ public class CreatePickUps : MonoBehaviour {
       player = GameObject.Find("Player");
       runnerScoreManager = player.GetComponent<RunnerScoreManager>();
 
+      // Waits for tracks to spawn before finding their length
       yield return new WaitForSeconds(0.1f);
-
       trackLength = GameObject.FindGameObjectWithTag("Track").transform.localScale.z;
       trackWidth = GameObject.FindGameObjectWithTag("Track").transform.localScale.x;
       numOfTracks = GameObject.FindGameObjectsWithTag("Track").Length;
