@@ -73,7 +73,8 @@ public class DrunkSwayEffect : MonoBehaviour {
          x *= shakeForce * dampness;
          y *= shakeForce * dampness;
 
-         Camera.main.transform.position = new Vector3(x, y + originalCamPos.y, originalCamPos.z);
+         // Moves the camera according to the simplex noise
+         Camera.main.transform.position = new Vector3(x + originalCamPos.x, y + originalCamPos.y, originalCamPos.z);
 
          if(time >= loopDuration)
             time = 0.0f;
@@ -81,6 +82,7 @@ public class DrunkSwayEffect : MonoBehaviour {
          yield return null;
       }
 
+      // Returns camera to original position
       Camera.main.transform.position = originalCamPos;
    }
 }

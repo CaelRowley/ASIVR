@@ -28,7 +28,7 @@ public class StarField : MonoBehaviour {
             stars[i].position = Random.insideUnitSphere.normalized * starDistance + starParticleSystem.position;
          }
 
-         // Removes particles from view if they are withing the clip distance
+         // Removes particles from view if they are within the clip distance
          if((stars[i].position - starParticleSystem.position).sqrMagnitude <= (starClipDistance * starClipDistance)) {
             float percent = (stars[i].position - starParticleSystem.position).sqrMagnitude / (starClipDistance * starClipDistance);
             stars[i].startColor = new Color(1, 1, 1, percent);
